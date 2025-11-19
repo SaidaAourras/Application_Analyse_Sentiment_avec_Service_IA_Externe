@@ -1,6 +1,12 @@
 fastapi
 sqlalchemy
+pydantic
 dotenv
 psycopg2
 psycopg2-binary
 requests
+
+# jwt
+
+pyjwt
+pwdlib
