@@ -2,15 +2,26 @@ from database import Base , engine
 from fastapi import FastAPI , Depends , HTTPException , status
 from sqlalchemy.orm import Session
 from database import session_m
-from models import User , UserCreate , Prediction , UserLogin
+from models import User , UserCreate , Prediction , UserLogin , UserComment
 from auth import verify_token , create_token
 from Inference_providers import hugging_face_nlp
+from fastapi.middleware.cors import CORSMiddleware
 
 
 
 
 
 app = FastAPI()
+
+# ------------- cors config ----------------------
+
+app.add_middleware(
+     CORSMiddleware,
+     allow_origins=["*"],
+     allow_credentials=True,
+     allow_methods=["*"],
+     allow_headers=["*"],
+)
 
 Base.metadata.create_all(bind=engine)
 
@@ -21,10 +32,20 @@ def get_db():
     finally:
         session.close()
         
+# test
 
-
+@app.get('/')
+def hello():
+     return 'hello world'
+# my endpoints
 @app.post('/predict')
-def predict(comment:str , db:Session=Depends(get_db) , token=Depends(verify_token)):
+def predict(dataComment:UserComment , db:Session=Depends(get_db) , payload=Depends(verify_token)):
+     user = db.query(User).filter(User.username == payload['sub']).first()
+     if not user:
+          raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, 
+                              detail='Could not validate user')
+          
+     comment = dataComment.comment
      results = hugging_face_nlp(comment)
      # print(type(result))
      labels = []
@@ -46,10 +67,10 @@ def predict(comment:str , db:Session=Depends(get_db) , token=Depends(verify_toke
      db.commit()
      db.refresh(new_prediction)
      
-     return token
+     return new_prediction
 
-@app.post('/create_user')
-def create_user(user:UserCreate , db:Session=Depends(get_db) , token:str=Depends(verify_token)):
+@app.post('/register')
+def create_user(user:UserCreate , db:Session=Depends(get_db) ):
      new_user = User(
           username = user.username,
           password = user.password

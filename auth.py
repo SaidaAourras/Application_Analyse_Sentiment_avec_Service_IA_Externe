@@ -19,11 +19,13 @@ def create_token(username:str, user_id:str):
 
 def verify_token(token:str=Depends(api_key_header)):
     try:
-          payload = jwt.decode(token , SECRET_KEY , algorithms=[ALGORITHM])
-          return payload
+            if token.startswith("Bearer "):
+                token = token.split(" ")[1]
+            payload = jwt.decode(token , SECRET_KEY , algorithms=[ALGORITHM])
+            return payload
     except JWTError:
-          raise HTTPException(
-               status_code=status.HTTP_401_UNAUTHORIZED,
-               detail='token invalide',
-               headers={"WWW-Authenticate": "Bearer"}
-          )
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail='token invalide',
+                headers={"WWW-Authenticate": "Bearer"}
+            )

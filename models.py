@@ -50,7 +50,9 @@ class UserLogin(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
-    
+
+class UserComment(BaseModel):
+    comment:str
 # class TokenData(BaseModel):
 #     username:str | None=None
     

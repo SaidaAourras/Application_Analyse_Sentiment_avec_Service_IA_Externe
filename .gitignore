@@ -1,4 +1,5 @@
 venv
 advenced_auth.py
 test_auth.py
+test_hugging_face.py
 .env
