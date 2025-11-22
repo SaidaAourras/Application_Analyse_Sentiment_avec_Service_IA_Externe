@@ -6,6 +6,8 @@ psycopg2
 pytest
 psycopg2-binary
 requests
+python-jose
+python-multipart
 
 # jwt
 
