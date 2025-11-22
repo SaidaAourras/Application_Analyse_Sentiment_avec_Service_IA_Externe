@@ -38,7 +38,7 @@ def get_db():
 def hello():
      return 'hello world'
 # my endpoints
-@app.post('/predict')
+@app.post('/sentiment')
 def predict(dataComment:UserComment , db:Session=Depends(get_db) , payload=Depends(verify_token)):
      user = db.query(User).filter(User.username == payload['sub']).first()
      if not user:
@@ -60,7 +60,7 @@ def predict(dataComment:UserComment , db:Session=Depends(get_db) , payload=Depen
      
      new_prediction = Prediction(
           text = comment,
-          predict_rate = nb_star
+          predict_rate = nb_star.split(' ')[0]
      )
      
      db.add(new_prediction)
