@@ -3,6 +3,7 @@ sqlalchemy
 pydantic
 dotenv
 psycopg2
+pytest
 psycopg2-binary
 requests
 
