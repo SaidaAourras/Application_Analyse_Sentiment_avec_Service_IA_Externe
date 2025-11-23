@@ -1,15 +1,13 @@
 fastapi
+uvicorn[standard]
 sqlalchemy
 pydantic
 dotenv
-psycopg2
 pytest
 psycopg2-binary
 requests
 python-jose
 python-multipart
-
-# jwt
 
 pyjwt
 pwdlib
