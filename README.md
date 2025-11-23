@@ -135,7 +135,7 @@ Fichier .env recommandé :
   
   Une fois connecté, tu peux exécuter des commandes SQL classiques :
   
-        ``` bash
+  ``` bash
         -- Lister les tables
         \dt
         
@@ -144,7 +144,7 @@ Fichier .env recommandé :
         
         -- Quitter psql
         \q
-        ```
+  ```
 
 ## 📡 Endpoints Principaux
 
