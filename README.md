@@ -58,7 +58,7 @@ Documentation Swagger :
 
 ```bash
 git clone https://github.com/SaidaAourras/Application_Analyse_Sentiment_avec_Service_IA_Externe.git
-cd backend
+cd Application_Analyse_Sentiment_avec_Service_IA_Externe
 
 python -m venv venv
 source venv/bin/activate     # Windows: venv\Scripts\activate
@@ -127,6 +127,24 @@ Fichier .env recommandé :
         -p 8000:8000 \
         --env-file .env \
         sentiment-backend
+  
+- Accéder à la base de données PostgreSQL
+  
+      # Lancer une session psql dans le conteneur postgres
+      docker exec -it <name_container_postgres> psql -U POSTGRES_USER -d POSTGRES_DB
+  
+  Une fois connecté, tu peux exécuter des commandes SQL classiques :
+  
+        ``` bash
+        -- Lister les tables
+        \dt
+        
+        -- Voir les données d'une table
+        SELECT * FROM users;
+        
+        -- Quitter psql
+        \q
+        ```
 
 ## 📡 Endpoints Principaux
 
