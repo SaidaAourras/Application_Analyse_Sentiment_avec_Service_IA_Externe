@@ -160,7 +160,7 @@ Authentification utilisateur
 
         {"access_token": "eyJhb...", "token_type": "bearer"}
 
-## 🧠 POST /sentiment (protégé JWT)
+#### 🧠 POST /sentiment (protégé JWT)
 
 - Headers :
 
