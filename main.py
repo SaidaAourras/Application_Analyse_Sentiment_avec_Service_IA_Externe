@@ -37,6 +37,7 @@ def get_db():
 @app.get('/')
 def hello():
      return 'hello world'
+
 # my endpoints
 @app.post('/sentiment')
 def predict(dataComment:UserComment , db:Session=Depends(get_db) , payload=Depends(verify_token)):
@@ -47,7 +48,7 @@ def predict(dataComment:UserComment , db:Session=Depends(get_db) , payload=Depen
           
      comment = dataComment.comment
      results = hugging_face_nlp(comment)
-     # print(type(result))
+     
      labels = []
      scores = []
      
